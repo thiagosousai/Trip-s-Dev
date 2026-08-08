@@ -1,0 +1,10 @@
+{
+  "description": "Plan and organize your trips effortlessly with tools to manage itineraries, bookings, and travel details all in one convenient platform.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

@@ -92,6 +92,7 @@ function Home({ usuarioLogado, onSair }: HomeProps) {
   const salvarAtividade = async (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
     if (!roteiroAberto) return
+    const editando = Boolean(atividadeEditando)
     setSalvando(true)
     setErro('')
     try {
@@ -104,7 +105,8 @@ function Home({ usuarioLogado, onSair }: HomeProps) {
       setRoteiroAberto(viagemAtualizada)
       setNovaAtividade({ titulo: '', data: '', hora: '', categoria: 'Passeio', local: '', custo: '', detalhes: '' })
       setAtividadeEditando(null)
-      setMensagem(atividadeEditando ? 'Atividade atualizada.' : 'Atividade adicionada ao roteiro.')
+      if (!editando) setRoteiroAberto(null)
+      setMensagem(editando ? 'Atividade atualizada.' : 'Atividade adicionada ao roteiro.')
     } catch (err) {
       setErro(err instanceof Error ? err.message : 'Erro ao adicionar atividade.')
     } finally {

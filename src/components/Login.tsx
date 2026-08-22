@@ -10,6 +10,7 @@ interface LoginProps {
 function Login({ onLogin }: LoginProps) {
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+  const [senhaVisivel, setSenhaVisivel] = useState(false)
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
   const navigate = useNavigate()
@@ -57,7 +58,12 @@ function Login({ onLogin }: LoginProps) {
               </label>
               <label>
                 Senha
-                <input autoComplete="current-password" placeholder="Digite sua senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+                <span className="password-field">
+                  <input autoComplete="current-password" placeholder="Digite sua senha" type={senhaVisivel ? 'text' : 'password'} value={senha} onChange={(e) => setSenha(e.target.value)} />
+                  <button type="button" className="password-toggle" onClick={() => setSenhaVisivel((visivel) => !visivel)} aria-label={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'} title={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}>
+                    👁
+                  </button>
+                </span>
               </label>
               {erro && <p className="erro login-error">{erro}</p>}
               <button className="login-submit" type="submit" disabled={carregando}>

@@ -6,6 +6,7 @@ function Cadastro() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
+  const [senhaVisivel, setSenhaVisivel] = useState(false)
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
   const navigate = useNavigate()
@@ -55,7 +56,12 @@ function Cadastro() {
         </label>
         <label>
           Senha
-          <input placeholder="Crie uma senha forte" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+          <span className="password-field">
+            <input placeholder="Crie uma senha forte" type={senhaVisivel ? 'text' : 'password'} value={senha} onChange={(e) => setSenha(e.target.value)} />
+            <button type="button" className="password-toggle" onClick={() => setSenhaVisivel((visivel) => !visivel)} aria-label={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'} title={senhaVisivel ? 'Ocultar senha' : 'Mostrar senha'}>
+              👁
+            </button>
+          </span>
         </label>
         <p className={`password-hint ${senhaValida ? 'valid' : ''}`}>Use 8+ caracteres com maiúscula, minúscula e número.</p>
         {erro && <p className="erro">{erro}</p>}

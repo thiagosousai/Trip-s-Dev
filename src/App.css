@@ -359,6 +359,35 @@ form {
   gap: 12px;
 }
 
+.password-field {
+  position: relative;
+  display: block;
+}
+
+.password-field input {
+  padding-right: 48px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 34px;
+  height: 34px;
+  margin: 0;
+  padding: 0;
+  transform: translateY(-50%);
+  background: transparent;
+  color: #6f7a8d;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.password-toggle:hover {
+  transform: translateY(-50%);
+  background: #eef4fb;
+}
+
 label {
   display: flex;
   flex-direction: column;

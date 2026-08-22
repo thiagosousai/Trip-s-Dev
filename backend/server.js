@@ -3,13 +3,13 @@ const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
-const { DatabaseSync } = require('node:sqlite');
+const Database = require('better-sqlite3');
 
 const app = express();
 const PORT = Number(process.env.PORT || process.env.BACKEND_PORT || 3000);
 const dataPath = path.join(__dirname, 'data.json');
 const databasePath = path.join(__dirname, 'trip.db');
-const db = new DatabaseSync(databasePath);
+const db = new Database(databasePath);
 
 function senhaForte(senha) {
   return typeof senha === 'string' && senha.length >= 8 && /[a-z]/.test(senha) && /[A-Z]/.test(senha) && /\d/.test(senha);

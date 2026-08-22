@@ -1,4 +1,3 @@
-Claro — dá para deixar com uma aparência bem mais próxima de README de projeto real no GitHub, com descrição curta, badges, seções organizadas, destaque para arquitetura, instalação e uso, sem perder as informações técnicas.
 
 # ✈️ Trip's Dev
 

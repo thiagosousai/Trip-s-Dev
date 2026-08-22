@@ -1,3 +1,6 @@
+Claro. Como você já conseguiu fazer o deploy, faz sentido remover toda a parte de **Pré-requisitos**, **Instalação**, **Executando o projeto** e **Solução de problemas com portas**. Também dá para atualizar o status para deixar claro que existe uma versão publicada.
+
+Eu deixaria o README assim, mantendo o restante do conteúdo:
 
 # ✈️ Trip's Dev
 
@@ -128,7 +131,7 @@ Além disso:
 ├── backend/
 │   ├── server.js          # API REST
 │   ├── trip.db            # Banco SQLite local
-│   └── package.json        # Dependências do backend
+│   └── package.json       # Dependências do backend
 │
 ├── src/
 │   ├── components/        # Componentes da interface
@@ -139,94 +142,6 @@ Além disso:
 ├── index.html
 ├── package.json            # Dependências e scripts do frontend
 └── vite.config.ts          # Configuração do Vite
-```
-
----
-
-## ⚙️ Pré-requisitos
-
-Antes de executar o projeto, certifique-se de ter instalado:
-
-* **Node.js 22.5 ou superior**
-* **npm**
-
-A versão atual do backend utiliza `node:sqlite`, disponível nas versões recentes do Node.js.
-
-Verifique as versões instaladas:
-
-```bash
-node --version
-npm --version
-```
-
----
-
-## 📦 Instalação
-
-Clone o repositório e acesse a pasta do projeto:
-
-```bash
-git clone <URL_DO_REPOSITORIO>
-cd Trip-s-Dev
-```
-
-Instale as dependências do frontend:
-
-```bash
-npm install
-```
-
-Em seguida, instale as dependências do backend:
-
-```bash
-cd backend
-npm install
-cd ..
-```
-
----
-
-## ▶️ Executando o projeto
-
-O projeto utiliza dois servidores independentes:
-
-* **Backend:** `http://localhost:3000`
-* **Frontend:** `http://localhost:5173`
-
-Por isso, é necessário utilizar **dois terminais**.
-
-### Terminal 1 — Backend
-
-Na raiz do projeto:
-
-```bash
-npm run start
-```
-
-A API ficará disponível em:
-
-```text
-http://localhost:3000
-```
-
-### Terminal 2 — Frontend
-
-Na raiz do projeto:
-
-```bash
-npm start
-```
-
-A aplicação ficará disponível em:
-
-```text
-http://localhost:5173
-```
-
-Também é possível iniciar o frontend diretamente pelo Vite:
-
-```bash
-npm run dev -- --host 0.0.0.0 --port 5173
 ```
 
 ---
@@ -278,6 +193,12 @@ Após a migração, os novos dados passam a ser armazenados diretamente no SQLit
 
 ---
 
+## 🌐 Deploy
+
+O projeto possui uma versão publicada e disponível para acesso através do deploy realizado para a aplicação.
+
+---
+
 ## 🧪 Build e formatação
 
 ### Build de produção
@@ -298,44 +219,16 @@ npm run format
 
 ---
 
-## ⚠️ Solução de problemas
-
-### Porta já está em uso
-
-Caso apareça o erro:
-
-```text
-EADDRINUSE
-```
-
-significa que a porta utilizada pelo servidor já está ocupada por outro processo.
-
-Verifique a porta do frontend:
-
-```bash
-lsof -nP -iTCP:5173 -sTCP:LISTEN
-```
-
-Ou a porta do backend:
-
-```bash
-lsof -nP -iTCP:3000 -sTCP:LISTEN
-```
-
-Se já existir uma instância do projeto em execução, você pode utilizá-la ou encerrar o processo identificado antes de iniciar um novo servidor.
-
----
-
 ## 📍 Status do projeto
 
-**Em desenvolvimento.**
+**Concluído.**
 
 O projeto possui uma arquitetura separada entre frontend e backend, persistência de dados em SQLite, autenticação de usuários e gerenciamento completo de viagens e atividades.
+
+A aplicação também possui uma versão publicada por meio de deploy.
 
 ---
 
 ## 👨‍💻 Desenvolvimento
 
 Projeto desenvolvido como aplicação web utilizando tecnologias modernas do ecossistema JavaScript/TypeScript, com foco em organização de viagens, arquitetura cliente-servidor e persistência de dados.
-
----

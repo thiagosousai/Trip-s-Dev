@@ -1,5 +1,3 @@
-Claro. Como você já conseguiu fazer o deploy, faz sentido remover toda a parte de **Pré-requisitos**, **Instalação**, **Executando o projeto** e **Solução de problemas com portas**. Também dá para atualizar o status para deixar claro que existe uma versão publicada.
-
 Eu deixaria o README assim, mantendo o restante do conteúdo:
 
 # ✈️ Trip's Dev

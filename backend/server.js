@@ -143,6 +143,7 @@ app.post('/viagens/:id/roteiro', (req, res) => {
   const viagem = obterViagem(Number(req.params.id), Number(usuarioId));
   if (!viagem) return res.status(404).json({ erro: 'Viagem não encontrada.' });
   if (!titulo || !data) return res.status(400).json({ erro: 'Informe o título e a data da atividade.' });
+  if (data < viagem.data_inicio || data > viagem.data_fim) return res.status(400).json({ erro: 'A data da atividade deve estar dentro do período da viagem.' });
   const resultado = db.prepare('INSERT INTO roteiro (viagem_id, titulo, data, hora, detalhes, categoria, local, custo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(viagem.id, titulo.trim(), data, hora || '', detalhes?.trim() || '', categoria || 'Passeio', local?.trim() || '', custo ? Number(custo) : 0);
   res.status(201).json(db.prepare('SELECT id, titulo, data, hora, detalhes, categoria, local, custo FROM roteiro WHERE id = ?').get(Number(resultado.lastInsertRowid)));
 });
@@ -152,6 +153,7 @@ app.patch('/viagens/:viagemId/roteiro/:atividadeId', (req, res) => {
   const viagem = obterViagem(Number(req.params.viagemId), Number(usuarioId));
   if (!viagem) return res.status(404).json({ erro: 'Viagem não encontrada.' });
   if (!titulo || !data) return res.status(400).json({ erro: 'Informe o título e a data da atividade.' });
+  if (data < viagem.data_inicio || data > viagem.data_fim) return res.status(400).json({ erro: 'A data da atividade deve estar dentro do período da viagem.' });
   const resultado = db.prepare('UPDATE roteiro SET titulo = ?, data = ?, hora = ?, detalhes = ?, categoria = ?, local = ?, custo = ? WHERE id = ? AND viagem_id = ?').run(titulo.trim(), data, hora || '', detalhes?.trim() || '', categoria || 'Passeio', local?.trim() || '', custo ? Number(custo) : 0, Number(req.params.atividadeId), viagem.id);
   if (!resultado.changes) return res.status(404).json({ erro: 'Atividade não encontrada.' });
   res.json(db.prepare('SELECT id, titulo, data, hora, detalhes, categoria, local, custo FROM roteiro WHERE id = ?').get(Number(req.params.atividadeId)));

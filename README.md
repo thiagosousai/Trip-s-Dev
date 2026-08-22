@@ -1,4 +1,3 @@
-Eu deixaria o README assim, mantendo o restante do conteúdo:
 
 # ✈️ Trip's Dev
 

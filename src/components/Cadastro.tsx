@@ -1,20 +1,17 @@
 ﻿import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import type { Usuario } from '../types'
+import { cadastrarUsuario } from '../services/api'
 
-interface CadastroProps {
-  usuarios: Usuario[]
-  onCadastrar: (novo: Omit<Usuario, 'id'>) => void
-}
-
-function Cadastro({ usuarios, onCadastrar }: CadastroProps) {
+function Cadastro() {
   const [nome, setNome] = useState('')
   const [email, setEmail] = useState('')
   const [senha, setSenha] = useState('')
   const [erro, setErro] = useState('')
+  const [carregando, setCarregando] = useState(false)
   const navigate = useNavigate()
+  const senhaValida = senha.length >= 8 && /[a-z]/.test(senha) && /[A-Z]/.test(senha) && /\d/.test(senha)
 
-  function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent) {
     e.preventDefault()
     setErro('')
 
@@ -23,17 +20,26 @@ function Cadastro({ usuarios, onCadastrar }: CadastroProps) {
       return
     }
 
-    if (usuarios.some((u) => u.email === email)) {
-      setErro('Este e-mail já está cadastrado.')
+    if (!senhaValida) {
+      setErro('A senha precisa ter 8 caracteres, uma letra maiúscula, uma minúscula e um número.')
       return
     }
 
-    onCadastrar({ nome, email, senha })
-    navigate('/login')
+    setCarregando(true)
+
+    try {
+      await cadastrarUsuario({ nome, email, senha })
+      navigate('/login', { replace: true })
+    } catch (err) {
+      setErro(err instanceof Error ? err.message : 'Erro ao cadastrar.')
+    } finally {
+      setCarregando(false)
+    }
   }
 
   return (
-    <div className="card auth-card">
+    <main className="auth-page">
+      <div className="card auth-card">
       <p className="eyebrow eyebrow-dark">Nova experiência</p>
       <h2>Crie sua conta</h2>
       <p className="subtitle">Junte-se à comunidade e comece a planejar.</p>
@@ -49,15 +55,19 @@ function Cadastro({ usuarios, onCadastrar }: CadastroProps) {
         </label>
         <label>
           Senha
-          <input placeholder="Crie uma senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
+          <input placeholder="Crie uma senha forte" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} />
         </label>
+        <p className={`password-hint ${senhaValida ? 'valid' : ''}`}>Use 8+ caracteres com maiúscula, minúscula e número.</p>
         {erro && <p className="erro">{erro}</p>}
-        <button type="submit">Cadastrar</button>
+        <button type="submit" disabled={carregando}>
+          {carregando ? 'Cadastrando...' : 'Cadastrar'}
+        </button>
       </form>
       <p className="link-row">
         Já tem conta? <Link to="/login">Entrar</Link>
       </p>
-    </div>
+      </div>
+    </main>
   )
 }
 

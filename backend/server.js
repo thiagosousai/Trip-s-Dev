@@ -6,7 +6,7 @@ const crypto = require('crypto');
 const { DatabaseSync } = require('node:sqlite');
 
 const app = express();
-const PORT = Number(process.env.BACKEND_PORT || 3000);
+const PORT = Number(process.env.PORT || process.env.BACKEND_PORT || 3000);
 const dataPath = path.join(__dirname, 'data.json');
 const databasePath = path.join(__dirname, 'trip.db');
 const db = new DatabaseSync(databasePath);
@@ -30,6 +30,8 @@ function verificarSenha(senha, senhaArmazenada) {
 
 app.use(cors());
 app.use(express.json());
+
+app.get('/health', (_req, res) => res.json({ status: 'ok' }));
 
 db.exec(`
   PRAGMA foreign_keys = ON;
